@@ -1,12 +1,25 @@
 FROM python:3
 ENV PYTHONUNBUFFERED 1
-EXPOSE 8000
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# Application management & Gunicorn
+COPY start.sh /start/
+RUN chmod +x ./start/start.sh
+
 RUN mkdir /code
 WORKDIR /code
-ADD requirements.txt /code/
+
+# Install dependencies
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
-ADD . /code/
-COPY ./gunicorn/entrypoint.sh /code/
-# ENTRYPOINT [ "entrypoint.sh" ]
-# CMD ["python3", "manage.py runserver 0.0.0.0:8000"]
-# CMD ["gunicorn", "-c", "gunicorn.conf", "server:app"]
+
+COPY . /code/
+
+EXPOSE 8000
+
+# Start project using our production script file
+ENTRYPOINT [ "../start/start.sh" ]
+# ...or with development server
+# CMD python manage.py runserver 0.0.0.0:8000
+# ...or Gunicorn for production purposes
+# CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/kurrikulam --log-file -

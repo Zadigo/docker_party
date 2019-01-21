@@ -3,43 +3,53 @@ version: '3'
 services:
   db:
     build: ./database
-    # image: postgres:latest
-    # restart: always
+    container_name: postgres_database
+    env_file: ./env_file_general.env
     # environment:
-    #   - POSTGRES_USER='john'
-    #   - POSTGRES_PASSWORD='Constance97170'
-    #   - POSTGRES_DB='lang1'
-    #   - POSTGRES_USER=$POSTGRES_USER
-    #   - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    #   - POSTGRES_DB=$POSTGRES_DB
-    # volumes:
-    #   - ./init:/docker-entrypoint-initdb.d/
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_DB=job_default
+    #   - POSTGRES_PASSWORD=Constance97170
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_database:/docker-entrypoint-initdb.d/
+      - postgres_data:/var/lib/postgresql/data/
 
-  # guni:
-  #   build: ./gunicorn
-    # command: python3 --bind 0.0.0.0:8000 0.0.0.0:8000.sock
-      
-  mysite:
-    # container_name: language-startup
+  jobsite:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
-    # command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+    container_name: job_startup
+    env_file: ./env_file_general.env
     volumes:
       - .:/code
-      # - ./logs:/var/log
-      # - ./config:/etc/appconfig
     ports:
       - "8000:8000"
     depends_on:
-      - db
-
-  mynginx:
-    build: ./nginx/
-    # command: service nginx configtest
-    restart: always
-    ports:
-      - "8080:80"
-    # volumes:
-    #  - ./nginx/conf.d:/etc/nginx/conf.d
+      - "db"
     links:
-      - mysite:mysite
+      - "db"
+
+  enginx:
+    build: ./nginx
+    container_name: job_nginx
+    restart: always
+    # environment:
+    #   - NGINX_PORT=80
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - "jobsite"
+
+  # enginxprotekt:
+  #   build: ./failtoban
+  #   container_name: nginx_protection
+  #   volumes:
+  #     - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
+  #   depends_on:
+  #     - enginx
+ 
+volumes:
+  postgres_data: {}
+    
