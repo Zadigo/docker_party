@@ -14,7 +14,7 @@ action = %(action_mwl)s
 enabled  = true
 filter   = nginx-http-auth
 port     = http,https
-logpath  = /var/lib/docker/containers/*/*-json.log
+logpath  = /var/log/nginx*/error.log
 
 # [ssh]
 # enabled = true
