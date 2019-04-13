@@ -6,4 +6,6 @@ services:
     container_name: test_fail_to_ban
     restart: always
     volumes:
-      - ./faitoban/jails/nginx-http-auth.conf:/etc/fail2ban/filter.d
+      # - ./faitoban/jails/nginx-http-auth.conf:/etc/fail2ban/filter.d/nginx-http-auth.conf:ro
+      - ./faitoban/jails/nginx-http-auth.conf:/etc/fail2ban/filter.d/:ro
+      - /var/log:/host
