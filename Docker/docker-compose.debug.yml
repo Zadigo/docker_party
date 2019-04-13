@@ -1,10 +1,10 @@
 version: '2.1'
 
 services:
-  paul-party-lingua:
-    image: paul-party-lingua
-    build:
-      context: .
-      dockerfile: Dockerfile
+  test_fail_to_ban:
+    build: ./failtoban
+    container_name: test_fail_to_ban
     ports:
         - 8000:8000
+    volumes:
+      - ./failtoban/jails:./etc/fail2ban/jail.local
