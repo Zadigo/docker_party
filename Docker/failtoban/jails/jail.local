@@ -10,9 +10,15 @@ destemail = $destemail
 sendername = Fail2BanAlerts
 action = %(action_mwl)s
 
-[authentication]
+[nginx-http-auth]
 enabled  = true
 filter   = nginx-http-auth
 port     = http,https
 logpath  = /var/lib/docker/containers/*/*-json.log
-# /docker/data/nginx/log/nginx_error.log
+
+[ssh]
+enabled = true
+port    = ssh
+filter  = sshd
+logpath  = /host/auth.log
+maxretry = 5
