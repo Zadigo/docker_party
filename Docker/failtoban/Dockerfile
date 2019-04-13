@@ -12,12 +12,13 @@ COPY ./jails/nginx-http-auth.conf etc/fail2ban/filter.d/
 COPY ./jails/nginx-noproxy.conf etc/fail2ban/filter.d/
 COPY ./jails/nginx-noscript.conf etc/fail2ban/filter.d/
 
-# RUN touch var/log/auth.log
+RUN touch var/log/auth.log
 
 COPY ./init/entrypoint.sh start_protection/
 RUN chmod +x ./start_protection/entrypoint.sh
 
 RUN ls -la
+RUN stat etc/fail2ban/
 RUN cd etc && ls
 
 ENTRYPOINT [ "./start_protection/entrypoint.sh" ]
