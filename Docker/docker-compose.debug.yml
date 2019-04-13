@@ -7,5 +7,5 @@ services:
     restart: always
     volumes:
       - ./faitoban/jails/jail.txt:/etc/fail2ban/filter.d/jail.local:ro
-      - ./faitoban/jails/nginx-http-auth.conf:/etc/fail2ban/filter.d/
+      - ./faitoban/jails/:/etc/fail2ban/filter.d/
       - /var/log:/host
