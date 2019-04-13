@@ -6,5 +6,8 @@ services:
     container_name: test_fail_to_ban
     ports:
         - 8000:8000
-    # volumes:
-    #   - ./failtoban/jails:./etc/fail2ban/
+    volumes:
+      - failtoban_logs:/var/log/
+
+volumes:
+  failtoban_logs: {}

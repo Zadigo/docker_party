@@ -15,6 +15,4 @@ COPY ./jails/nginx-http-auth.conf etc/fail2ban/jail.d/
 COPY ./init/entrypoint.sh start_protection/
 RUN chmod +x ./start_protection/entrypoint.sh
 
-RUN ls
-
 ENTRYPOINT [ "./start_protection/entrypoint.sh" ]
