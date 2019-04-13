@@ -16,9 +16,9 @@ filter   = nginx-http-auth
 port     = http,https
 logpath  = /var/lib/docker/containers/*/*-json.log
 
-[ssh]
-enabled = true
-port    = ssh
-filter  = sshd
-logpath  = /host/auth.log
-maxretry = 5
+# [ssh]
+# enabled = true
+# port    = ssh
+# filter  = sshd
+# logpath  = /host/auth.log
+# maxretry = 5
