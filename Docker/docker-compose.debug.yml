@@ -7,7 +7,7 @@ services:
     ports:
         - 8000:8000
     volumes:
-      - failtoban_logs:/var/log/
+      - failtoban_logs:../../var/log/
 
 volumes:
   failtoban_logs: {}
