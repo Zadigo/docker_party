@@ -15,3 +15,4 @@ enabled  = true
 filter   = nginx-http-auth
 port     = http,https
 logpath  = /var/lib/docker/containers/*/*-json.log
+# /docker/data/nginx/log/nginx_error.log

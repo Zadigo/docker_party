@@ -7,7 +7,7 @@ ENV destemail=contact.kurrikulam@gmail.com
 
 COPY ./jails/jail.local etc/fail2ban/
 
-COPY ./jails/nginx-http-auth.conf etc/fail2ban/jail.d/
+COPY ./jails/nginx-http-auth.conf etc/fail2ban/filter.d/
 # COPY ./jails/nginx-badbots.conf etc/fail2ban/filter.d/
 # COPY ./jails/nginx-noproxy.conf etc/fail2ban/filter.d/
 # COPY ./jails/nginx-noscript.conf etc/fail2ban/filter.d/
