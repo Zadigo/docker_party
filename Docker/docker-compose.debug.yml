@@ -7,4 +7,4 @@ services:
     ports:
         - 8000:8000
     volumes:
-      - ./failtoban/jails:./etc/fail2ban/jail.local
+      - ./failtoban/jails:./etc/fail2ban/

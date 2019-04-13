@@ -12,6 +12,13 @@ docker-compose exec jobsite python manage.py makemigrations
 docker-compose exec jobsite python manage.py migrate
 docker-compose exec jobsite python manage.py collectstatic
 
+# Build specific container
+docker-compose -f docker-compose.debug.yml build
+
+# Copy file to local to edit or watch it
+docker cp job_startup:/code/offres/migrations/0005_auto_20190204_1554.py .
+
+
 
 docker images
 docker run image
