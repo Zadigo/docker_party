@@ -6,5 +6,3 @@ services:
     container_name: test_fail_to_ban
     ports:
         - 8000:8000
-    volumes:
-      - ./var/log/auth.log:../../../var/log/auth.log
