@@ -15,8 +15,6 @@ COPY ./jails/nginx-noscript.conf etc/fail2ban/filter.d/
 COPY ./init/entrypoint.sh start_protection/
 RUN chmod +x ./start_protection/entrypoint.sh
 
-RUN ls -la
-RUN stat etc/fail2ban/
-RUN cd etc && ls
+RUN ls
 
 ENTRYPOINT [ "./start_protection/entrypoint.sh" ]
