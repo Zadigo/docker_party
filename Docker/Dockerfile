@@ -2,24 +2,33 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-# Application management & Gunicorn
-COPY start.sh /start/
-RUN chmod +x ./start/start.sh
+# Application management & firing
+COPY ./docker/start.sh /start/
+COPY ./docker/wait_for_postgres.py /start/
+RUN chmod +x ./start/start.sh && chmod +x ./start/wait_for_postgres.py
 
 RUN mkdir /code
 WORKDIR /code
 
-# Install dependencies
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+# Install dependencies with
+# pipfile
+COPY Pipfile Pipfile
+COPY Pipfile.lock Pipfile.lock
+
+RUN pip3 install pipenv
+# RUN python -m pip install -U pip
+RUN pipenv install --deploy --system
 
 COPY . /code/
 
 EXPOSE 8000
 
-# Start project using our production script file
+# Start project using a simple script file
 ENTRYPOINT [ "../start/start.sh" ]
+# ...or one that waits for the database
+# ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
-# CMD python manage.py runserver 0.0.0.0:8000
+# ENTRYPOINT [ "pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+# CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
 # CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/kurrikulam --log-file -
