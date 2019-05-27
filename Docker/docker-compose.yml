@@ -12,7 +12,7 @@ services:
       - ./postgres_database:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data/
 
-  jobsite:
+  app_dev:
     build: .
     container_name: job_startup
     env_file: ./env_file_general.env
@@ -34,7 +34,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - "jobsite"
+      - "app_dev"
 
   # enginxprotekt:
   #   build: ./failtoban

@@ -12,7 +12,7 @@ services:
       - ./postgres_database:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data/
 
-  jobsite:
+  app:
     build: .
     container_name: job_startup
     env_file: ./env_file_general.env

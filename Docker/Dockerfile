@@ -11,12 +11,11 @@ RUN mkdir /code
 WORKDIR /code
 
 # Install dependencies with
-# pipfile
+# pipfile to .
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
 RUN pip3 install pipenv
-# RUN python -m pip install -U pip
 RUN pipenv install --deploy --system
 
 COPY . /code/
