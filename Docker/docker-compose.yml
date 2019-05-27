@@ -39,7 +39,7 @@ services:
     build: ./failtoban
     container_name: nginx_protection
     volumes:
-      - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
+      - ./etc/fail2ban/jails/jail.local:/etc/fail2ban/jail.local
     depends_on:
       - enginx
  
