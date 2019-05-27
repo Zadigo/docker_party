@@ -2,6 +2,8 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+LABEL "com.example.vendor"="Application"
+
 # Application management & firing
 COPY ./docker/start.sh /start/
 COPY ./docker/wait_for_postgres.py /start/
@@ -23,7 +25,7 @@ COPY . /code/
 EXPOSE 8000
 
 # Start project using a simple script file
-ENTRYPOINT [ "../start/start.sh" ]
+# ENTRYPOINT [ "../start/start.sh" ]
 # ...or one that waits for the database
 # ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
