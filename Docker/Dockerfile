@@ -4,16 +4,21 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 LABEL "com.example.vendor"="Application"
 
-# Application management & firing
+# Copy required files to the
+# /start/ folder in the container
 COPY ./docker/start.sh /start/
+
 COPY ./docker/wait_for_postgres.py /start/
-RUN chmod +x ./start/start.sh && chmod +x ./start/wait_for_postgres.py
+
+RUN chmod +x ./start/start.sh && \
+    chmod +x ./start/wait_for_postgres.py
 
 RUN mkdir /code
+
 WORKDIR /code
 
 # Install dependencies with
-# pipfile to .
+# pipfile to container
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
