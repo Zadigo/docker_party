@@ -32,8 +32,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/log:/var/log/nginx/error.log
-      - ./nginx/log:/var/log/nginx/access.log
+      - ./nginx/log:/var/log/nginx/
     depends_on:
       - "app_dev"
 
