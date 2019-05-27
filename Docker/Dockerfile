@@ -11,10 +11,10 @@ LABEL "com.example.vendor"="Application"
 # COPY ./docker/start.sh /start/
 COPY ./start.sh /start/
 
-COPY ./docker/wait_for_postgres.py /start/
+# COPY ./docker/wait_for_postgres.py /start/
 
-RUN chmod +x ./start/start.sh && \
-    chmod +x ./start/wait_for_postgres.py
+RUN chmod +x ./start/start.sh
+    # chmod +x ./start/wait_for_postgres.py
 
 RUN mkdir /code
 
