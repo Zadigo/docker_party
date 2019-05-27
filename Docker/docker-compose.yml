@@ -36,7 +36,7 @@ services:
       - "app_dev"
 
   fail_to_ban:
-    image: funtwo/fail2ban
+    image: SuperITMan/fail2ban
     container_name: nginx_protection
     restart: always
     volumes:
