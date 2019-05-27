@@ -1,5 +1,7 @@
 FROM python:3
+
 ENV PYTHONUNBUFFERED 1
+
 ENV PYTHONDONTWRITEBYTECODE 1
 
 LABEL "com.example.vendor"="Application"
@@ -20,9 +22,11 @@ WORKDIR /code
 # Install dependencies with
 # pipfile to container
 COPY Pipfile Pipfile
+
 COPY Pipfile.lock Pipfile.lock
 
 RUN pip3 install pipenv
+
 RUN pipenv install --deploy --system
 
 COPY . /code/
