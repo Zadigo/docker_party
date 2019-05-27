@@ -9,12 +9,11 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # - ./postgres_database:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data/
 
   app_dev:
     build: .
-    container_name: job_startup
+    container_name: website_app
     env_file: ./env_files/env_dev.env
     volumes:
       - .:/code
