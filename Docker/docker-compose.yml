@@ -18,6 +18,7 @@ services:
     env_file: ./env_files/env_dev.env
     volumes:
       - .:/code
+      - /home/pendenquejohn/:./env_files/env_dev.env
     ports:
       - "8000:8000"
     depends_on:
