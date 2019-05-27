@@ -26,7 +26,7 @@ services:
 
   enginx:
     build: ./nginx
-    container_name: job_nginx
+    container_name: app_nginx
     restart: always
     ports:
       - "80:80"
