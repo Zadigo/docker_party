@@ -35,13 +35,13 @@ services:
     depends_on:
       - "app_dev"
 
-  # enginxprotekt:
-  #   build: ./failtoban
-  #   container_name: nginx_protection
-  #   volumes:
-  #     - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
-  #   depends_on:
-  #     - enginx
+  enginxprotekt:
+    build: ./failtoban
+    container_name: nginx_protection
+    volumes:
+      - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
+    depends_on:
+      - enginx
  
 volumes:
   postgres_data: {}
