@@ -8,7 +8,8 @@ LABEL "com.example.vendor"="Application"
 
 # Copy required files to the
 # /start/ folder in the container
-COPY ./docker/start.sh /start/
+# COPY ./docker/start.sh /start/
+COPY ./start.sh /start/
 
 COPY ./docker/wait_for_postgres.py /start/
 
