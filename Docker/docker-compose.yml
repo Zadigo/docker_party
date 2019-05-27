@@ -42,6 +42,7 @@ services:
     volumes:
       - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
       - ./etc/fail2ban/jails:/etc/fail2ban/filter.d/
+      - ./failtoban/log:/var/log/host
     depends_on:
       - "enginx"
  
