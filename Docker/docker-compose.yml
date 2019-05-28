@@ -40,14 +40,14 @@ services:
     image: superitman/fail2ban
     container_name: nginx_protection
     restart: always
-    command: ['ls']
     volumes:
       - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
       - ./etc/fail2ban/jails:/etc/fail2ban/filter.d/
       - ./failtoban/log:/var/log/host
+      - auth_log:/var/log/auth.log
     depends_on:
       - "enginx"
  
 volumes:
   postgres_data: {}
-    
+  auth_log: {}
