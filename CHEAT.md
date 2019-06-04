@@ -36,9 +36,11 @@ docker ps -a
 ```
 
 ## Connect inside database
+```
 ~~docker-compose up~~
 docker start postgres_database
 docker exec -it postgres_database psql -U postgres
+```
 
 ### Creating users or tables
 ```
