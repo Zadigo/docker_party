@@ -1,16 +1,20 @@
 ## UPDATE UBUNTU
 
-`sudo apt-get update`
+```
+sudo apt-get update
   
-`sudo apt-get upgrade`
+sudo apt-get upgrade
+```
 
 ## INSTALL OTHER PACKAGES
   
-`apt install tree`
+```
+apt install tree
   
-`apt-get install fail2ban`
+apt-get install fail2ban
 
-`sudo apt-get install htop`
+sudo apt-get install htop
+```
 
 ## INSTALL PYTHON 3 (OPTIONAL)
 
