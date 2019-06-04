@@ -1,5 +1,14 @@
-## Translation
-You need to install [http://www.gettext.com].
+# Installing Docker
+```
+sudo apt install docker.io
+sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+apt-get upgrade docker-engine
+docker info
+```
+
+# Translation
+You need to install [http://www.gettext.com](GetText).
 ```
 django-admin makemessages --locale=en
 django-admin compilemessages --locale=en
@@ -17,6 +26,27 @@ __NOTE:__ Container has to be already running
 docker start <container>
 docker-compose exec <service> python manage.py makemigrations
 docker-compose exec <service> python manage.py migrate
+```
+
+# Container management
+Show containers.
+```
+docker ps
+docker ps -a
+```
+
+## Connect inside database
+~~docker-compose up~~
+docker start postgres_database
+docker exec -it postgres_database psql -U postgres
+
+### Creating users or tables
+```
+CREATE USER ... WITH ENCRYPTED PASSWORD '...';
+
+CREATE DATABASE ... OWNER ...;
+
+GRANT ALL PRIVILEGES ON DATABASE ... TO ...;
 ```
 
 # Static files
@@ -52,19 +82,11 @@ docker run -p 8000:80 kurrikulam_enginx
 docker run --name jobsite --entrypoint /bin/bash kurrikulam_jobsite -c "ls -l /; id"
 docker run -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=Constance97170 -e POSTGRES_DB=job_database1 kurrikulam_db
 
-docker ps
-docker ps -a
 
 docker-compose config
 docker-compose rm
 docker-compose run service
 docker-compose images -a
-
-image: kurrikulam_jobsite
-image_id: 0e1d5725479f
-container: job_startup
-service: jobsite
-kurrikulam_enginx
 
 docker ps -aq
 docker container prune
@@ -88,18 +110,3 @@ Migrations issues
 docker ps -aq --no-trunc -f status=exited | xargs docker rm
 
 docker images -q --filter dangling=true | xargs docker rmi
-
-
-# Install Docker
-```
-sudo apt install docker.io
-sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-apt-get upgrade docker-engine
-docker info
-```
-
-# Connect inside database
-docker-compose up
-docker start postgres_database
-docker exec -it postgres_database psql -U postgres
