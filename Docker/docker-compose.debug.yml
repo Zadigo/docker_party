@@ -2,7 +2,8 @@ version: '3'
 
 services:
   test_fail_to_ban:
-    image: superitman/fail2ban
+    # image: superitman/fail2ban
+    build: ./docker/failtoban
     container_name: test_fail_to_ban
     restart: always
     volumes:

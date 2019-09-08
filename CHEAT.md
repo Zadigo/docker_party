@@ -51,6 +51,8 @@ CREATE DATABASE ... OWNER ...;
 GRANT ALL PRIVILEGES ON DATABASE ... TO ...;
 ```
 
+By precaution, it is advised to restart the container `docker restart container` in order to take the changes into account. It can avoid certain errors such as role or database does not exist.
+
 # Static files
 Push static files to AWS servers:
 ```
@@ -67,6 +69,19 @@ docker-compose -f docker-compose.prod.yml build
 docker cp job_startup:/code/offres/migrations/0005_auto_20190204_1554.py .
 ```
 
+# Other
+```docker-compose down && docker-compose up --rebuild
+```
+
+# GIT
+
+## Checking out pull request locally
+```
+git fetch origin pull/11/head:pr-1234
+
+    Where 11, in pull/11/head is the number of the pull request and 1234 in pr-1234 is the number of the local branch we wish to pull the request locally
+
+```
 
 docker images
 docker run image
