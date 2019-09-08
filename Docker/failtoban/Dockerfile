@@ -1,3 +1,6 @@
 FROM superitman/fail2ban
 
-COPY jail.local etc/fail2ban/jail.local
+COPY custom.conf jaild.d/custom.conf
+
+# Copy the filters in filter.d
+COPY ./jails/ssh.conf ./filter.d
