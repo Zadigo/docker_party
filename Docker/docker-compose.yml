@@ -11,14 +11,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  app_dev:
+  app:
     build: .
-    container_name: website_app
-    env_file: ./env_files/env_dev.env
+    container_name: website_app_prod
+    env_file: ./env_files/env_prod.env
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "4000:8000"
     depends_on:
       - "db"
     links:
@@ -29,18 +29,18 @@ services:
     container_name: app_nginx
     restart: always
     ports:
-      # - "80:80"
-      - "40"
+      - "20:80"
     volumes:
-      - ./nginx/log:/var/log/nginx/
+      - nginx_logs:/var/log/nginx/
     depends_on:
-      - "app_dev"
+      - "app"
 
-  fail_to_ban:
-    build: ./failtoban
-    container_name: server_protection
-    restart: always
+  # fail_to_ban:
+  #   build: ./failtoban
+  #   container_name: server_protection
+  #   restart: always
     
 volumes:
   postgres_data: {}
   auth_log: {}
+  nginx_logs: {}

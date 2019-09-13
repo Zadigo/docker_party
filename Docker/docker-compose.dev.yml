@@ -18,7 +18,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "6000:8000"
     depends_on:
       - "db"
     links:
@@ -31,18 +31,11 @@ services:
     ports:
       - "20:80"
     volumes:
-      - ./nginx/log:/var/log/nginx/
+      - nginx_logs:/var/log/nginx/
     depends_on:
       - "app_2"
-
-  # enginxprotekt:
-  #   build: ./failtoban
-  #   container_name: nginx_protection
-  #   volumes:
-  #     - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
-  #   depends_on:
-  #     - enginx
  
 volumes:
   postgres_data: {}
+  nginx_logs: {}
     
