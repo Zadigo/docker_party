@@ -23,8 +23,7 @@ COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
 RUN pip3 install pipenv
-RUN pipenv install --system
-# RUN pipenv install --deploy
+RUN pipenv install --system --deploy
 
 # Copy the application
 COPY . /code/
