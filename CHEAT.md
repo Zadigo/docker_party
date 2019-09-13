@@ -75,6 +75,10 @@ docker cp job_startup:/code/offres/migrations/0005_auto_20190204_1554.py .
 ```docker-compose down && docker-compose up --rebuild
 ```
 
+```
+docker-compose run --rm app ls
+```
+
 # GIT
 
 ## Checking out pull request locally
