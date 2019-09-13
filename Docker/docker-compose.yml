@@ -17,6 +17,7 @@ services:
     env_file:
       - ./env_files/env_prod.env
       - ./env_files/django.env
+      - ./env_files/db_env.env
     volumes:
       - .:/code
     ports:
@@ -32,6 +33,7 @@ services:
     env_file:
       - ./env_files/env_dev.env
       - ./env_files/django.env
+      - ./env_files/db_env.env
     volumes:
       - .:/code
     ports:
