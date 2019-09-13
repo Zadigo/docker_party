@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 social-auth-app-django = "*"
 psycopg2 = "*"
+django = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
