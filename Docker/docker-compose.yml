@@ -24,6 +24,19 @@ services:
     links:
       - "db"
 
+  app_2:
+    build: ./website/mydjango
+    container_name: website_app_dev
+    env_file: ./env_files/env_dev.env
+    volumes:
+      - .:/code
+    ports:
+      - "6000:8000"
+    depends_on:
+      - "db"
+    links:
+      - "db"
+
   enginx:
     build: ./nginx
     container_name: app_nginx
