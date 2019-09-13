@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 LABEL "com.example.vendor"="application"
 
-COPY ../start.sh /start/
+COPY start.sh /start/
 
 # COPY ./docker/wait_for_postgres.py /start/
 
