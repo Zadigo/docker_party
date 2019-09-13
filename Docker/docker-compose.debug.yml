@@ -1,12 +1,20 @@
 version: '3'
 
 services:
-  test_fail_to_ban:
-    # image: superitman/fail2ban
-    build: ./failtoban
-    container_name: test_fail_to_ban
-    restart: always
+  # test_fail_to_ban:
+  #   # image: superitman/fail2ban
+  #   build: ./failtoban
+  #   container_name: test_fail_to_ban
+  #   restart: always
+  #   volumes:
+  #     - ./faitoban/jails/jail.txt:/etc/fail2ban/filter.d/jail.local:ro
+  #     - ./faitoban/jails/:/etc/fail2ban/filter.d/
+  #     - /var/log:/host
+  app_test:
+    build: ./website/mydjango
+    container_name: website_app_debug
+    env_file: ./env_files/env_dev.env
     volumes:
-      - ./faitoban/jails/jail.txt:/etc/fail2ban/filter.d/jail.local:ro
-      - ./faitoban/jails/:/etc/fail2ban/filter.d/
-      - /var/log:/host
+      - .:/code
+    ports:
+      - "4000:8000"
