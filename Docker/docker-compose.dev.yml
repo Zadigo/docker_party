@@ -12,7 +12,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 
   app_2:
-    build: .
+    build: ./website/mydjango
     container_name: website_app_dev
     env_file: ./env_files/env_dev.env
     volumes:
