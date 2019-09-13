@@ -37,7 +37,7 @@ EXPOSE 8000
 # ...or with development server
 # ENTRYPOINT [ "pipenv", "run", "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
 # ...without using pipenv
-ENTRYPOINT [ "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
+# ENTRYPOINT [ "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
 # CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
-# CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/kurrikulam --log-file -
+CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/website/mydjango --log-file -
