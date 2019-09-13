@@ -3,7 +3,7 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-LABEL "com.example.vendor"="application"
+LABEL "com.example.application"="application"
 
 COPY start.sh /start/
 
