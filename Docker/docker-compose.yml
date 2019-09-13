@@ -12,7 +12,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 
   app:
-    build: .
+    build: ./website/docke
     container_name: website_app_prod
     env_file: ./env_files/env_prod.env
     volumes:
