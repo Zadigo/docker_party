@@ -4,11 +4,8 @@ ENV PYTHONUNBUFFERED 1
 
 ENV PYTHONDONTWRITEBYTECODE 1
 
-LABEL "com.example.vendor"="Application"
+LABEL "com.example.vendor"="application"
 
-# Copy required files to the
-# /start/ folder in the container
-# COPY ./docker/start.sh /start/
 COPY ./start.sh /start/
 
 # COPY ./docker/wait_for_postgres.py /start/
@@ -20,8 +17,7 @@ RUN mkdir /code
 
 WORKDIR /code
 
-# Install dependencies with
-# pipfile to container
+# Install dependencies
 COPY Pipfile Pipfile
 
 COPY Pipfile.lock Pipfile.lock
@@ -30,6 +26,7 @@ RUN pip3 install pipenv
 
 RUN pipenv install --deploy --system
 
+# Copy the application
 COPY . /code/
 
 EXPOSE 8000
@@ -39,7 +36,7 @@ EXPOSE 8000
 # ...or one that waits for the database
 # ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
-# ENTRYPOINT [ "pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+ENTRYPOINT [ "pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
 # CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
 # CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/kurrikulam --log-file -
