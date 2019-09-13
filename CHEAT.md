@@ -40,6 +40,8 @@ docker ps -a
 ~~docker-compose up~~
 docker start postgres_database
 docker exec -it postgres_database psql -U postgres
+
+docker-compose -f local.yml run app sh
 ```
 
 ### Creating users or tables
