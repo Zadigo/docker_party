@@ -37,17 +37,10 @@ services:
       - "app_dev"
 
   fail_to_ban:
-    image: superitman/fail2ban
-    container_name: nginx_protection
+    build: ./failtoban
+    container_name: server_protection
     restart: always
-    volumes:
-      - ./etc/fail2ban/jail.local:/etc/fail2ban/jail.local
-      - ./etc/fail2ban/jails:/etc/fail2ban/filter.d/
-      - ./failtoban/log:/var/log/host
-      - auth_log:/var/log/auth.log
-    depends_on:
-      - "enginx"
- 
+    
 volumes:
   postgres_data: {}
   auth_log: {}
