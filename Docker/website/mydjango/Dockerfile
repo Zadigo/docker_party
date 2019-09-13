@@ -31,7 +31,7 @@ COPY . /code/
 EXPOSE 8000
 
 # Start project using a simple script file
-# ENTRYPOINT [ "../start/start.sh" ]
+ENTRYPOINT [ "../start/start.sh" ]
 # ...or one that waits for the database
 # ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
@@ -40,4 +40,4 @@ EXPOSE 8000
 # ENTRYPOINT [ "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
 # CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
-CMD gunicorn mydjango.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/website/mydjango --log-file -
+# CMD gunicorn mydjango.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/website/mydjango --log-file -
