@@ -29,7 +29,7 @@ services:
     container_name: app_nginx
     restart: always
     ports:
-      - "80:80"
+      - "20:80"
     volumes:
       - ./nginx/log:/var/log/nginx/
     depends_on:
