@@ -15,12 +15,16 @@ RUN chmod +x ./start/start.sh
 RUN mkdir /code
 WORKDIR /code
 
+# Update Pip
+RUN pip install --upgrade pip
+
 # Install dependencies
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
 RUN pip3 install pipenv
-RUN pipenv install --deploy --system
+RUN pipenv install --system
+# RUN pipenv install --deploy
 
 # Copy the application
 COPY . /code/
