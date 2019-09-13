@@ -31,7 +31,7 @@ COPY . /code/
 
 EXPOSE 8000
 
-RUN ls && cd .. && ls
+RUN ls && cd .. && echo '---' && ls
 
 # Start project using a simple script file
 # ENTRYPOINT [ "../start/start.sh" ]
