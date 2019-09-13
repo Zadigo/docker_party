@@ -31,12 +31,14 @@ COPY . /code/
 
 EXPOSE 8000
 
+RUN ls && cd .. && ls
+
 # Start project using a simple script file
 # ENTRYPOINT [ "../start/start.sh" ]
 # ...or one that waits for the database
 # ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
-# ENTRYPOINT [ "pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
-CMD pipenv run python manage.py runserver 0.0.0.0:8000
+ENTRYPOINT [ "pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+# CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
 # CMD gunicorn kurrikulam.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/kurrikulam --log-file -
