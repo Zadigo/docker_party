@@ -14,7 +14,9 @@ services:
   app:
     build: ./website/mydjango
     container_name: website_app_prod
-    env_file: ./env_files/env_prod.env
+    env_file:
+      - ./env_files/env_prod.env
+      - ./env_files/django.env
     volumes:
       - .:/code
     ports:
@@ -27,7 +29,9 @@ services:
   app_2:
     build: ./website/mydjango
     container_name: website_app_dev
-    env_file: ./env_files/env_dev.env
+    env_file:
+      - ./env_files/env_dev.env
+      - ./env_files/django.env
     volumes:
       - .:/code
     ports:
