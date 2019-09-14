@@ -133,3 +133,13 @@ Migrations issues
 docker ps -aq --no-trunc -f status=exited | xargs docker rm
 
 docker images -q --filter dangling=true | xargs docker rmi
+
+
+# Deploy key
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+eval $(ssh-agent -s)
+
+ssh-add ~/.ssh/id_rsa
+```
