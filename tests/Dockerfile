@@ -1,14 +1,9 @@
 FROM certbot/certbot:latest AS construct
 
-ENV HOME=/home
+ENV BASE_PATH=../..
 
-ENV LIVE_DOMAINS_PATH=/etc/letsencrypt/live
+COPY script.py /home
 
-RUN mkdir ${LIVE_DOMAINS_PATH}/nawoka.fr &&\
-    mkdir ${LIVE_DOMAINS_PATH}/www.nawoka.fr
+RUN chmod +x /home/script.py
 
-COPY script.py ${HOME}
-
-RUN chmod +x ${HOME}/script.py
-
-RUN python ${HOME}/script.py
+RUN python /home/script.py
