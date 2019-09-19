@@ -18,10 +18,7 @@ class Certificates:
             for domain in domains:
                 os.makedirs(os.path.join(live_domains_path, domain))
 
-        params = " openssl req -x509 -nodes -newkey rsa:1024 -days 1"\
-                    "-keyout /data/certbot/privkey.pem -out /data/certbot/fullchain.pem -subj '/CN=localhost'"
-        statement = 'docker-compose run --rm --entrypoint' + params + ' certbot'
-        result = Popen(statement, stdout=STDOUT)
+        result = Popen('/home/other.sh', stdout=STDOUT, shell=True)
         print(result)
         
 
