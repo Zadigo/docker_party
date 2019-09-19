@@ -3,4 +3,10 @@ FROM ubuntu:latest
 RUN apt update &&\
     apt upgrade
 
-ENTRYPOINT [ "/bin/bash" ]
+COPY script.py ./home
+
+RUN chmod +x ./home/script.py
+
+WORKDIR /home
+
+ENTRYPOINT [ "/bin/bash", "script.py" ]
