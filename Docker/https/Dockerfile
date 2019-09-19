@@ -6,6 +6,6 @@ RUN chmod +x letsencrypt.py
 
 # COPY init-letsencrypt.sh .
 
-ENTRYPOINT [ "/opt/certbot/letsencrypt.py" ]
+ENTRYPOINT [ "letsencrypt.py" ]
 
 # /usr/bin/python
