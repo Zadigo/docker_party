@@ -4,6 +4,7 @@ import argparse
 import os
 import pathlib
 import posixpath
+from subprocess import call, STDOUT
 
 import requests
 
@@ -16,6 +17,11 @@ class Certificates:
         if not self._exists(live_domains_path):
             for domain in domains:
                 os.makedirs(os.path.join(live_domains_path, domain))
+
+        params = "openssl req -x509 -nodes -newkey rsa:1024 -days 1"\
+                    "-keyout /data/certbot/privkey.pem -out /data/certbot/fullchain.pem -subj '/CN=localhost'"
+        result = call(['docker-compose', 'run', '--rm', '--entrypoint', params, 'certbot'], stdout=STDOUT)
+        call(["echo", str(result)])
 
 
     @staticmethod
