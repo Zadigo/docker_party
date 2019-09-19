@@ -1,6 +1,9 @@
 FROM ubuntu:latest
 
-# RUN apt install python 3
+RUN apt install python 3
+
+# RUN export PYTHON=/usr/bin/python &&\
+#     export PATH=$PATH:$PYTHON
 
 RUN apt update &&\
     apt upgrade
