@@ -1,14 +1,16 @@
 # docker_party
 Python test applications and items related to docker
 
+# Docker
 
-# SSH Windows
+The docker folder is a composition of various basic containers with their Dockerfile created in order to test them one by one or within an application.
 
-[https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html]
-## Windows
-1. Open git bash
-2. ssh-keygen -t rsa -b 4096 -C "email"
-3. eval "$(ssh-agent -s)"
-4. ssh-add ~/.ssh/id_rsa
-5. Add the public key to your Bitbucket settings
-6. ssh -T git@bitbucket.org
+You can find elements such as:
+    - Database
+    - Nginx
+    - failtoban
+    - environment files
+    - letsencrypt
+    - A simple django application
+    - Cadvisor
+
