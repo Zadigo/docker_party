@@ -27,7 +27,7 @@ class LetsEncrypt(Requester):
         if path_exists:
             # A certificate already exists
             # and we need to replace it
-            pass
+            print('Path not there')
 
         # Check whether the required files are
         # present in the folder of this path
