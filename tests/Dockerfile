@@ -18,6 +18,8 @@ FROM python:3
 
 ENV START_PATH=/home
 
+ENV CERTBOT_DATA_PATH=/data/certbot
+
 COPY script.py /scripts/
 
 RUN chmod +x ${START_PATH}/scripts.py
