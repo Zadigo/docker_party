@@ -6,6 +6,7 @@ RUN chmod +x letsencrypt.py
 
 # COPY init-letsencrypt.sh .
 
-ENTRYPOINT [ "letsencrypt.py" ]
+# ENTRYPOINT [ "letsencrypt.py" ]
+CMD [ "/bin/bash", "letsencrypt.py" ]
 
 # /usr/bin/python
