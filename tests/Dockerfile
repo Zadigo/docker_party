@@ -8,15 +8,18 @@ COPY script.py ${START_PATH}
 
 RUN chmod +x ${START_PATH}/script.py
 
-ENTRYPOINT [ "python", "/home/script.py" ]
+RUN mkdir ${START_PATH}/tls_parameters
+
+RUN python /home/script.py
+
 
 
 FROM certbot/certbot:latest AS construct
 
-ENV CERTBOT_CONF=/data/certbot/conf
+ENV BASE_PATH=/opt/certbot
 
-# COPY from=base ${TLS_PARAMETERS}/options-ssl-nginx.conf ${CERTBOT_CONF}
+ENV CERTBOT_CONF_PATH=../../data/certbot/conf
 
-COPY --from=base /home/tls_parameters/ssl-dhparams.pem ${CERTBOT_CONF}
+COPY --from=base /home/tls_parameters ${CERTBOT_CONF_PATH}
 
-RUN ls
+RUN cd ../../.. && ls
