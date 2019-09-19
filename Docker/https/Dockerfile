@@ -1,13 +1,23 @@
-FROM certbot/certbot
+FROM python:3 AS base
 
-COPY letsencrypt.py .
+RUN pip install requests
 
-RUN chmod +x letsencrypt.py
+ENV START_PATH=/home
 
-# COPY init-letsencrypt.sh .
+COPY letsencrypt.py ${START_PATH}
 
-# ENTRYPOINT [ "letsencrypt.py" ]
-# CMD letsencrypt.py
-CMD [ "/bin/sh", "-c" ]
+RUN chmod +x ${START_PATH}/letsencrypt.py
 
-# /usr/bin/python
+RUN mkdir ${START_PATH}/tls_parameters
+
+RUN python /home/script.py
+
+
+
+FROM certbot/certbot:latest AS construct
+
+ENV BASE_PATH=/opt/certbot
+
+ENV CERTBOT_CONF_PATH=../../data/certbot/conf
+
+COPY --from=base /home/tls_parameters ${CERTBOT_CONF_PATH}
