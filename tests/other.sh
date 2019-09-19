@@ -7,4 +7,8 @@ docker-compose run --rm --entrypoint "\
     -out '$path/fullchain.pem' \
     -subj '/CN=localhost'" certbot
 
+echo "+ Starting nginx ..."
 docker-compose up --force-recreate -d nginx
+echo
+
+echo "+ Deleting dummy certificate ..."
