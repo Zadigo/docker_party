@@ -11,7 +11,7 @@ RUN chmod +x ${START_PATH}/script.py
 ENTRYPOINT [ "python", "/home/script.py" ]
 
 
-FROM certbot:certbot AS construct
+FROM certbot/certbot:latest AS construct
 
 ENV TLS_PARAMETERS=/home/tls_parameters
 
