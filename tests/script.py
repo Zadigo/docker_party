@@ -7,8 +7,8 @@ import posixpath
 import requests
 
 
-class Certificates:
-    def get_certificates(self, create_to='/home/certificates/'):
+class TLS:
+    def download_parameters(self, create_to='/home/tls_parameters/'):
         urls = [
             # "https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf",
             "https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem"
@@ -45,20 +45,20 @@ class Certificates:
     def get_file_name(url):
         return os.path.basename(url)
 
-class LetsEncrypt(Certificates):
+class LetsEncrypt(TLS):
     def __init__(self, **kwargs):
         current_path = kwargs['start_path'] or posixpath.curdir
-        certificates_dir = posixpath.join(current_path, 'certificates')
+        tls_parameters_dir = posixpath.join(current_path, 'tls_parameters')
         # Check if we have a folder to
         # store the different certificates
-        certificate_path_exists = posixpath.lexists(certificates_dir)
+        certificate_path_exists = posixpath.lexists(tls_parameters_dir)
 
         # Create the corresponding path
         if not certificate_path_exists:
-            os.mkdir(certificates_dir)
+            os.mkdir(tls_parameters_dir)
 
         # certificates
-        paths = self.get_certificates()
+        paths = self.download_parameters()
         
         print(paths[0].exists())
 

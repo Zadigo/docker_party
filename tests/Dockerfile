@@ -14,12 +14,21 @@
 
 # ENTRYPOINT [ "bash" ]
 
-FROM python:3
+FROM python:3 AS base
 
 ENV START_PATH=/home
 
-ENV CERTBOT_DATA_PATH=/data/certbot
+ENV TLS_PARAMETERS=/home/tls_parameters
 
-COPY script.py /scripts/
+COPY script.py ${START_PATH}
 
-RUN chmod +x ${START_PATH}/scripts.py
+RUN chmod +x ${START_PATH}/script.py
+
+
+# FROM certbot:certbot AS construct
+
+# ENV CERTBOT_CONF=/data/certbot/conf
+
+# COPY from=base ${TLS_PARAMETERS}/options-ssl-nginx.conf ${CERTBOT_CONF}
+
+# COPY from=base ${TLS_PARAMETERS}/ssl-dhparams.pem ${CERTBOT_CONF}
