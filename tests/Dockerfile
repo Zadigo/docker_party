@@ -9,4 +9,4 @@ RUN chmod +x ./home/script.py
 
 WORKDIR /home
 
-ENTRYPOINT [ "/bin/bash", "script.py" ]
+ENTRYPOINT [ "/usr/bin/python", "script.py" ]
