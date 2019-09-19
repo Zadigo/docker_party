@@ -26,6 +26,7 @@ COPY script.py ${START_PATH}
 
 RUN chmod +x ${START_PATH}/script.py
 
+ENTRYPOINT [ "/usr/bin/python", "/home/script.py" ]
 
 # FROM certbot:certbot AS construct
 
