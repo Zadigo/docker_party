@@ -3,3 +3,4 @@ version: '3.7'
 services:
   test_service:
     build: .
+    container_name: python_three
