@@ -4,11 +4,11 @@ COPY letsencrypt.py .
 
 RUN chmod +x letsencrypt.py
 
-RUN ls
+RUN cd src && ls
 
-RUN echo ----
+RUN echo "----"
 
-RUN ls -d
+RUN cd .. && cd .. && ls
 
 # COPY init-letsencrypt.sh .
 
