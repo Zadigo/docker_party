@@ -1,55 +1,57 @@
-#!/usr/bin/python3
+#!/bin/sh
 
-import os
-import pathlib
-import posixpath
-import subprocess
-from threading import Thread
+print('Hello')
 
-DOMAINS = ['nawoka.fr', 'www.nawoka.fr']
+# import os
+# import pathlib
+# import posixpath
+# import subprocess
+# from threading import Thread
 
-RSA_KEY_SIZE = 4096
+# DOMAINS = ['nawoka.fr', 'www.nawoka.fr']
 
-DATA_PATH = '/data/certbot'
+# RSA_KEY_SIZE = 4096
 
-EMAIL = 'contact.nawoka@gmail.com'
+# DATA_PATH = '/data/certbot'
 
-STAGING = 0
+# EMAIL = 'contact.nawoka@gmail.com'
 
-class Requester:
-    pass
+# STAGING = 0
 
-class LetsEncrypt(Requester):
-    def __init__(self, **kwargs):
-        self.base_path = posixpath.curdir
-        path_exists = posixpath.lexists(DATA_PATH)
+# class Requester:
+#     pass
 
-        if path_exists:
-            # A certificate already exists
-            # and we need to replace it
-            print('Path not there')
+# class LetsEncrypt(Requester):
+#     def __init__(self, **kwargs):
+#         self.base_path = posixpath.curdir
+#         path_exists = posixpath.lexists(DATA_PATH)
 
-        # Check whether the required files are
-        # present in the folder of this path
-        # e.g. options-ssl-nginx.conf or
-        # ssl-dhparams.pem
-        conf_files = [
-            posixpath.join(DATA_PATH, 'options-ssl-nginx.conf'),
-            posixpath.join(DATA_PATH, 'ssl-dhparams.pem')
-        ]
+#         if path_exists:
+#             # A certificate already exists
+#             # and we need to replace it
+#             print('Path not there')
 
-    @staticmethod
-    def path_exists(path, return_path=False):
-        if posixpath.lexists(path):
-            if return_path:
-                return path
-            return True
+#         # Check whether the required files are
+#         # present in the folder of this path
+#         # e.g. options-ssl-nginx.conf or
+#         # ssl-dhparams.pem
+#         conf_files = [
+#             posixpath.join(DATA_PATH, 'options-ssl-nginx.conf'),
+#             posixpath.join(DATA_PATH, 'ssl-dhparams.pem')
+#         ]
 
-        if return_path:
-            return path
-        return False
+#     @staticmethod
+#     def path_exists(path, return_path=False):
+#         if posixpath.lexists(path):
+#             if return_path:
+#                 return path
+#             return True
 
-encrypt = LetsEncrypt(data_path='/data/certbot')
+#         if return_path:
+#             return path
+#         return False
+
+# encrypt = LetsEncrypt(data_path='/data/certbot')
 
 # thread1 = Thread(target=LetsEncrypt, name="Let's Encrypt")
 # thread2 = Thread(target=Requester, name='Requester')
