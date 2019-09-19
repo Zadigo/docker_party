@@ -21,8 +21,8 @@ class Certificates:
         params = " openssl req -x509 -nodes -newkey rsa:1024 -days 1"\
                     "-keyout /data/certbot/privkey.pem -out /data/certbot/fullchain.pem -subj '/CN=localhost'"
         statement = 'docker-compose run --rm --entrypoint' + params + ' certbot'
-        print(statement)
-        # result = Popen(statement, stdout=STDOUT)
+        result = Popen(statement, stdout=STDOUT)
+        print(result)
         
 
     @staticmethod
