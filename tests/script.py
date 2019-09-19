@@ -1,11 +1,21 @@
 #!/usr/bin/python
 
+import argparse
 import os
 import pathlib
 import posixpath
 
 import requests
 
+# class TLSError(Exception):
+#     def __init__(self, message=None, url=None):
+#         self.message = "Could not get content for %s" % url
+
+#     def __unicode__(self):
+#         return self.message
+
+#     def __repr__(self):
+#         return self.__unicode__()
 
 class TLS:
     def download_parameters(self, create_to='/home/tls_parameters/'):
@@ -23,7 +33,8 @@ class TLS:
                 if response.status_code == 200:
                     data = response.content
                 else:
-                    print(f"Could not get content for {url}")
+                    print("Could not get content for %s" % url)
+                    # raise TLSError(url=url)
                     raise Exception()
             
             file_name = os.path.basename(url)
@@ -35,7 +46,7 @@ class TLS:
             paths = []
             paths.append(pathlib.PosixPath(certificate_path))
             
-            # Write the certificates -- ready
+            # Write the parameters -- ready
             # to be used elsewhere
             with open(certificate_path, 'wb') as f:
                 f.write(data)
@@ -60,6 +71,15 @@ class LetsEncrypt(TLS):
         # certificates
         paths = self.download_parameters()
         
-        print(paths[0].exists())
+        for path in paths:
+            if path.exists():
+                print('+ Created TLS parameter in %s' % path.as_posix())
 
 encrypt = LetsEncrypt(start_path='/home/')
+
+# if __name__ == "__main__":
+#     args = argparse.ArgumentParser(description='Download TLS parameters for Cerbot')
+#     args.add_argument('-p', '--start', help='Starting path to download and create the parameter directory')
+#     parsed_args = args.parse_args()
+
+#     encrypt = LetsEncrypt(start_path=parsed_args.start)
