@@ -13,12 +13,10 @@ ENTRYPOINT [ "python", "/home/script.py" ]
 
 FROM certbot/certbot:latest AS construct
 
-ENV TLS_PARAMETERS=/home/tls_parameters
-
 ENV CERTBOT_CONF=/data/certbot/conf
 
 # COPY from=base ${TLS_PARAMETERS}/options-ssl-nginx.conf ${CERTBOT_CONF}
 
-COPY --from=base ${TLS_PARAMETERS}/ssl-dhparams.pem ${CERTBOT_CONF}
+COPY --from=base /home/tls_parameters/ssl-dhparams.pem ${CERTBOT_CONF}
 
 RUN ls
