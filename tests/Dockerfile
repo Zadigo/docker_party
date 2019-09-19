@@ -1,7 +1,7 @@
 FROM certbot/certbot:latest AS construct
 
-RUN /bin/sh
+COPY script.py /home
 
-RUN /bin/bash
+RUN chmod +x /home/script.py
 
-RUN /usr/bin/python
+RUN python /home/script.py
