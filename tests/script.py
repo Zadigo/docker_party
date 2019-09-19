@@ -37,7 +37,7 @@ class TLS:
             
             # Write the certificates -- ready
             # to be used elsewhere
-            with open(certificate_path, 'w') as f:
+            with open(certificate_path, 'wb') as f:
                 f.write(data)
         return paths
 
