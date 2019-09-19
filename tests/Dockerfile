@@ -15,3 +15,7 @@
 # ENTRYPOINT [ "bash" ]
 
 FROM python:3
+
+COPY script.py /scripts/
+
+RUN chmod +x /scripts/scripts.py
