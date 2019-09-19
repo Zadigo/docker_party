@@ -11,3 +11,5 @@ RUN tree -d
 # COPY init-letsencrypt.sh .
 
 # ENTRYPOINT [ "./init-letsencrypt.sh" ]
+
+# /usr/bin/python
