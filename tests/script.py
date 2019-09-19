@@ -18,10 +18,6 @@ class Certificates:
             for domain in domains:
                 os.makedirs(os.path.join(live_domains_path, domain))
 
-        result = Popen('/home/other.sh', stdout=STDOUT, shell=True)
-        print(result)
-        
-
     @staticmethod
     def _exists(path):
         return posixpath.exists(path)
