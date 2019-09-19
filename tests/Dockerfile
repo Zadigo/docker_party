@@ -1,9 +1,9 @@
 FROM ubuntu:latest
 
+# RUN apt install python 3
+
 RUN apt update &&\
     apt upgrade
-
-# RUN apt install python
 
 COPY script.py ./home
 
