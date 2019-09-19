@@ -6,3 +6,5 @@ docker-compose run --rm --entrypoint "\
     -keyout '$path/privkey.pem' \
     -out '$path/fullchain.pem' \
     -subj '/CN=localhost'" certbot
+
+docker-compose up --force-recreate -d nginx
