@@ -16,6 +16,8 @@
 
 FROM python:3 AS base
 
+RUN pip install requests
+
 ENV START_PATH=/home
 
 ENV TLS_PARAMETERS=/home/tls_parameters
