@@ -16,6 +16,8 @@
 
 FROM python:3
 
+ENV START_PATH=/home
+
 COPY script.py /scripts/
 
-RUN chmod +x /scripts/scripts.py
+RUN chmod +x ${START_PATH}/scripts.py
