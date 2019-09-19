@@ -4,7 +4,9 @@ COPY letsencrypt.py .
 
 RUN chmod +x letsencrypt.py
 
-RUN ls -la
+RUN apt install tree
+
+RUN tree -d
 
 # COPY init-letsencrypt.sh .
 
