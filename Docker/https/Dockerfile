@@ -1,7 +1,9 @@
 FROM certbot/certbot
 
-COPY init-letsencrypt.sh .
+COPY letsencrypt.py .
 
-RUN chmod +x init-letsencrypt.sh
+RUN chmod +x letsencrypt.py
 
-ENTRYPOINT [ "./init-letsencrypt.sh" ]
+# COPY init-letsencrypt.sh .
+
+# ENTRYPOINT [ "./init-letsencrypt.sh" ]
