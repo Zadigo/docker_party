@@ -88,3 +88,12 @@ services:
 
 volumes:
   PostgresData: {}
+
+
+nginx:
+  volumes:
+    - ./var/data:/etc/letsencrypt
+
+certbot:
+  volumes:
+    - ./var/data:/etc/letsencrypt

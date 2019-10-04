@@ -1,5 +1,4 @@
 [DEFAULT]
-
 bantime = 3600
 ignoreip = 127.0.0.1/8
 findtime = 3600
@@ -7,18 +6,18 @@ maxretry = 6
 
 mta = mail
 destemail = $destemail
-sendername = Fail2BanAlerts
+sendername = Fail2Ban
 action = %(action_mwl)s
 
 [nginx-http-auth]
 enabled  = true
 filter   = nginx-http-auth
 port     = http,https
-logpath  = /var/log/nginx*/error.log
+logpath  = /etc/fail2ban/error.log
 
 [ssh]
-enabled  = true
-port     = ssh
-filter   = sshd
-logpath  = /var/log/auth.log
-maxretry = 6
+# enabled  = true
+# port     = ssh
+# filter   = sshd
+logpath  = /etc/fail2ban/auth.log
+# maxretry = 6
