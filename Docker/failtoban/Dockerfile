@@ -1,6 +1,7 @@
 FROM superitman/fail2ban
 
-COPY custom.conf jail.d/custom.conf
+LABEL "com.failtoban.vendor"="fail2ban"
 
-# Copy the filters in filter.d
-COPY ./jails filter.d
+COPY jail.local .
+
+RUN touch auth.log && touch error.log

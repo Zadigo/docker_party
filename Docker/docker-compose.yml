@@ -1,16 +1,6 @@
 version: '3.7'
 
 services:
-  db:
-    build: ./database
-    container_name: postgres_database
-    env_file: ./env_files/db_env.env
-    restart: always
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-
   app:
     build: ./website/mydjango
     container_name: website_app_prod
@@ -20,6 +10,7 @@ services:
       - ./env_files/db_env.env
     volumes:
       - .:/code
+      - ./var/gunicorn/log:/var/log/gunicorn/
     ports:
       - "4000:8000"
     depends_on:
@@ -43,23 +34,57 @@ services:
     links:
       - "db"
 
+  db:
+    build: ./database
+    container_name: postgres_database
+    env_file: ./env_files/db_env.env
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - PostgresData:/var/lib/postgresql/data/
+
   enginx:
     build: ./nginx
     container_name: app_nginx
     restart: always
     ports:
       - "20:80"
-    volumes:
-      - nginx_logs:/var/log/nginx/
     depends_on:
       - "app"
+    volumes:
+      - ./var/certbot:/etc/letsencrypt/
 
-  # fail_to_ban:
-  #   build: ./failtoban
-  #   container_name: server_protection
-  #   restart: always
-    
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    privileged: true
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+      - "app"
+      - "enginx"
+      - "db"
+
+  failtoban:
+    build: ./failtoban
+    container_name: failtoban
+    depends_on:
+      - "app"
+      - "enginx"
+    links:
+      - "enginx"
+
+  certbot:
+    build: ./cert
+    container_name: certbot
+    volumes:
+      - ./var/certbot:/etc/letsencrypt
+
 volumes:
-  postgres_data: {}
-  auth_log: {}
-  nginx_logs: {}
+  PostgresData: {}
