@@ -1,6 +1,6 @@
 FROM superitman/fail2ban
 
-LABEL "com.failtoban.vendor"="fail2ban"
+LABEL "com.failtoban.app"="fail2ban"
 
 COPY jail.local .
 

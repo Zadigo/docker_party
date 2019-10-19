@@ -5,9 +5,9 @@ services:
     build: ./website/mydjango
     container_name: website_app_prod
     env_file:
-      - ./env_files/env_prod.env
-      - ./env_files/django.env
-      - ./env_files/db_env.env
+      - ./environment/prod.env
+      - ./environment/django.env
+      - ./environment/db.env
     volumes:
       - .:/code
       - ./var/gunicorn/log:/var/log/gunicorn/
@@ -22,9 +22,9 @@ services:
     build: ./website/mydjango
     container_name: website_app_dev
     env_file:
-      - ./env_files/env_dev.env
-      - ./env_files/django.env
-      - ./env_files/db_env.env
+      - ./environment/dev.env
+      - ./environment/django.env
+      - ./environment/db.env
     volumes:
       - .:/code
     ports:
@@ -37,7 +37,7 @@ services:
   db:
     build: ./database
     container_name: postgres_database
-    env_file: ./env_files/db_env.env
+    env_file: ./environment/db.env
     restart: always
     ports:
       - "5432:5432"
@@ -50,8 +50,6 @@ services:
     restart: always
     ports:
       - "20:80"
-    depends_on:
-      - "app"
     volumes:
       - ./var/certbot:/etc/letsencrypt/
 
@@ -75,7 +73,6 @@ services:
     build: ./failtoban
     container_name: failtoban
     depends_on:
-      - "app"
       - "enginx"
     links:
       - "enginx"
@@ -88,12 +85,3 @@ services:
 
 volumes:
   PostgresData: {}
-
-
-nginx:
-  volumes:
-    - ./var/data:/etc/letsencrypt
-
-certbot:
-  volumes:
-    - ./var/data:/etc/letsencrypt
