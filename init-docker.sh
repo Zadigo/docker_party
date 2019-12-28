@@ -1,4 +1,4 @@
-#! bin/bash
+#!/bin/bash
 
 KERNEL_INFO=uname -s
 SYSTEM_INFO=uname -m
