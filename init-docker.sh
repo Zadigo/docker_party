@@ -38,6 +38,9 @@ fi
 #     docker pull dpage/pgadmin4
 # fi
 
+# Install tree
+snap install tree
+
 # General update
 sudo apt-get update
 sudo apt-get upgrade
