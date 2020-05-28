@@ -1,0 +1,12 @@
+# https://csp-evaluator.withgoogle.com/
+
+default-src 'self' 127.0.0.1 https://*.nawoka.fr;
+block-all-mixed-content;
+base-uri 'self';
+object-src 'self' https://www.googletagmanager.com;
+img-src 'self' https://*.nawoka.fr https://mybusinesses.s3.eu-west-3.amazonaws.com/*;
+media-src 'self';
+style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://use.fontawesome.com;
+font-src https://www.google.com https://fonts.googleapis.com;
+script-src 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.google-analytics.com/gtm/js https://www.google-analytics.com/analytics.js https://ajax.googleapis.com https://www.googletagmanager.com/gtag/js https://*.gstatic.com/feedback/ https://cdn.jsdelivr.net/npm/vue/dist/vue.js https://cdn.jsdelivr.net/npm/vue https://code.jquery.com/ https://cdnjs.cloudflare.com https://www.facebook.com https://connect.facebook.net/en_US/fbevents.js https://chimpstatic.com https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js;
+report-uri https://nawoka.fr/report/r/;
