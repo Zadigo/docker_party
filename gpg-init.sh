@@ -6,6 +6,11 @@
 
 EMAIL=""
 
+# Chooe 1 and then 4096 bit
 gpg --full-generate-key
 
 gpg --list-secret-keys --keyid-format=long
+
+# Copy the tring after rsa4096/ on the ec line and
+# ue it there
+gpg --armor --export $key
