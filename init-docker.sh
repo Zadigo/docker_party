@@ -46,3 +46,8 @@ snap install tree
 # General update
 sudo apt-get update
 sudo apt-get upgrade
+
+# Firewall
+sudo ufw enable
+sudo ufw allow http
+sudo ufw allow https
