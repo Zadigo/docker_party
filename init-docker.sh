@@ -51,3 +51,7 @@ sudo apt-get upgrade
 sudo ufw enable
 sudo ufw allow http
 sudo ufw allow https
+
+# Github
+git config --global user.name "Ubuntu"
+git config --global user.email "ubuntu@gmail.com"
