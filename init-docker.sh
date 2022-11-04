@@ -51,6 +51,7 @@ sudo apt-get upgrade
 sudo ufw enable
 sudo ufw allow http
 sudo ufw allow https
+sudo ufw allow 22
 
 # Github
 git config --global user.name "Ubuntu"
