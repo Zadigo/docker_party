@@ -58,3 +58,9 @@ read -p "Git username:" username
 git config --global user.name $username
 read -p "Git email:" email
 git config --global user.email $email
+
+# Change ownership of the home directory
+# which can throw a permission denied error
+# when trying to clone a git directory
+# sudo chown ubuntu:ubuntu -R home
+# read -p "Clone git directory [yes/no]?" clone_git
