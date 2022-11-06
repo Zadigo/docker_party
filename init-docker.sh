@@ -63,4 +63,7 @@ git config --global user.email $email
 # which can throw a permission denied error
 # when trying to clone a git directory
 # sudo chown ubuntu:ubuntu -R home
+# Do the same thing for the Docker sock which
+# can also throw a permission error
+# sudo chown ubuntu:ubuntu -R /var/run/docker.sock
 # read -p "Clone git directory [yes/no]?" clone_git
