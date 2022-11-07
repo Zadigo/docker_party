@@ -33,6 +33,10 @@ fi
 #     docker pull cadvisor
 # fi
 
+# sudo chown ubuntu:ubuntu -R /usr/local/lib/
+# sudo snap install node --classic --channel=19
+# npm -g add @vue/cli
+
 # Pulls the PGAdmin container
 # read -p "Install PG Admin [yes|no]?" install_cadvisor
 
