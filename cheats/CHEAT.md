@@ -164,3 +164,6 @@ Execute the output code in
 # Do database backups
 
 First, run migrations for Django in order to create the given tables. Once, done, backup the data per table and then do an sqlsequencereset in order to reset the PK sequence and prevent duplicate key error.
+
+# Test server 
+python3 -m http.server --bind 127.0.0.1
