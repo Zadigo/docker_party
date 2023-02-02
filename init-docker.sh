@@ -1,16 +1,23 @@
 #!/bin/bash
 
+$repository = ""
+$container = ""
+
 # Installs docker
 sudo apt-get install docker.io
+
 # Installs docker compose
 curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+apt-get upgrade
+apt-get update
+
 # Updates docker engine
-# apt-get upgrade docker-engine
+apt-get upgrade docker-engine
 
 # Prints Docker version
-# echo docker version | grep "Version"
+echo docker version | grep "Version"
 
 read -p "Install nginx-proxy [yes|no]? " install_nginx_proxy
 
@@ -44,3 +51,18 @@ snap install tree
 # General update
 sudo apt-get update
 sudo apt-get upgrade
+
+
+if [ $repository -ne "" ]; then
+    cd ~/../home/ 
+        && mkdir app
+    git clone $repository
+    
+    if [ $container -ne "" ]; then
+        docker-compose build $container
+        docker-compose up $container
+    fi
+fi
+
+# Set default Python to Python 3
+update-alternatives --install /usr/bin/python python /usr/bin/python3 1

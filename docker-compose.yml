@@ -2,37 +2,30 @@ version: '3.7'
 
 services:
   app:
-    build: ./website/mydjango
-    container_name: website_app_prod
+    build: ./mywebsite
+    container_name: container_name
     env_file:
       - ./environment/prod.env
-      - ./environment/django.env
-      - ./environment/db.env
+      - ./environment/dev.env
     volumes:
-      - .:/code
+      - .:/app
       - ./var/gunicorn/log:/var/log/gunicorn/
     ports:
-      - "4000:8000"
+      - 8000:8000
     depends_on:
-      - "db"
-    links:
-      - "db"
+      - db
+    networks:
+      - mywebsite_network
 
-  app_2:
-    build: ./website/mydjango
-    container_name: website_app_dev
-    env_file:
-      - ./environment/dev.env
-      - ./environment/django.env
-      - ./environment/db.env
-    volumes:
-      - .:/code
-    ports:
-      - "6000:8000"
-    depends_on:
-      - "db"
-    links:
-      - "db"
+  # vue_app:
+  #   build: './mywebsite/frontend'
+  #   container_name: frontend
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - 3000:80
+  #   networks:
+  #     - mywebsite_network
 
   db:
     build: ./database
@@ -40,18 +33,51 @@ services:
     env_file: ./environment/db.env
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - PostgresData:/var/lib/postgresql/data/
+    networks:
+      - mywebsite_network
 
-  enginx:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - 5050:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=""
+      - PGADMIN_DEFAULT_PASSWORD=""
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
+      - PGADMIN_CONFIG_LOGIN_BANNER='Only authorized users are allowed here'
+      - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
+    # volumes:
+    #   - ./var/certbot/conf:/certs/server.cert
+    #   - ./var/certbot/conf:/certs/server.key
+    networks:
+      - mywebsite_network
+
+  caching:
+    image: memcached
+    container_name: memcaching
+    ports:
+      - 11211:11211
+    volumes:
+      - ./mywebsite:/app
+    depends_on:
+      - app
+    networks:
+      - mywebsite_network
+
+  nginx_:
     build: ./nginx
     container_name: app_nginx
     restart: always
     ports:
-      - "20:80"
+      - 80:80
     volumes:
       - ./var/certbot:/etc/letsencrypt/
+    networks:
+      - mywebsite_network
 
   cadvisor:
     image: google/cadvisor:latest
@@ -65,23 +91,93 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
-      - "app"
-      - "enginx"
-      - "db"
+      - app
+      - nginx_
+      - db
+    networks:
+      - mywebsite_network
 
   failtoban:
     build: ./failtoban
     container_name: failtoban
     depends_on:
-      - "enginx"
-    links:
-      - "enginx"
+      - nginx_
+    networks:
+      - mywebsite_network
 
   certbot:
     build: ./cert
     container_name: certbot
     volumes:
       - ./var/certbot:/etc/letsencrypt
+    networks:
+      - mywebsite_network
+
+  redis:
+    image: redis
+    container_name: redis_db
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    restart: always
+    depends_on:
+      - web
+    volumes:
+      - RedisData:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - mywebsite_network
+
+  celery:
+    build: ./mywebsite
+    container_name: celery
+    command: celery --app mywebsite worker -l info -f /app/mywebsite/celery.log
+    env_file:
+      - ./docker/environment/prod.env
+      - ./environment/dev.env
+    depends_on:
+      - redis
+      - web
+    volumes:
+      - ./mywebsite/:/app
+    networks:
+      - mywebsite_network
+
+  beat:
+    build: ./mywebsite
+    container_name: celerybeat
+    command: celery --app mywebsite.celery beat -l info -f /app/mywebsite/celery_beat.log
+    env_file:
+      - ./docker/environment/prod.env
+      - ./environment/dev.env
+    depends_on:
+      - redis
+      - celery
+    volumes:
+      - ./mywebsite/:/app
+    networks:
+      - mywebsite_network
+
+  flower:
+    build: ./mywebsite
+    container_name: flower
+    command: flower -A mywebsite --port=5555 --broker=redis://redis:6379/0 --basic_auth=mywebsite:mywebsite-password --log_file_prefix=var/flower.log
+    env_file:
+      - ./docker/environment/prod.env
+      - ./environment/dev.env
+    ports:
+      - 5555:5555
+    depends_on:
+      - celery
+      - beat
+    networks:
+      - mywebsite_network
 
 volumes:
   PostgresData: {}
+  NginxLogs: {}
+  RedisData: {}
+
+networks:
+  mywebsite_network:
+    driver: bridge

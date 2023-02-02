@@ -1,3 +1,7 @@
+# Main DockerFile for creating the
+# container for Django
+
+# FROM python:3 AS django
 FROM python:3
 
 ENV PYTHONUNBUFFERED 1
@@ -5,12 +9,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 LABEL "com.example.application"="application"
 
-COPY start.sh /start/
+# COPY start.sh /start/
 
 # COPY ./docker/wait_for_postgres.py /start/
 
-RUN chmod +x ./start/start.sh
-    # chmod +x ./start/wait_for_postgres.py
+# RUN chmod +x ./start/start.sh
+# chmod +x ./start/wait_for_postgres.py
 
 RUN mkdir /code
 WORKDIR /code
@@ -31,13 +35,31 @@ COPY . /code/
 EXPOSE 8000
 
 # Start project using a simple script file
-ENTRYPOINT [ "../start/start.sh" ]
+# ENTRYPOINT [ "../start/start.sh" ]
 # ...or one that waits for the database
 # ENTRYPOINT [ "../start/wait_for_postgres.py" ]
 # ...or with development server
 # ENTRYPOINT [ "pipenv", "run", "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
 # ...without using pipenv
-# ENTRYPOINT [ "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
+ENTRYPOINT [ "python", "/code/website/mydjango/manage.py", "runserver", "0.0.0.0:8000" ]
 # CMD pipenv run python manage.py runserver 0.0.0.0:8000
 # ...or Gunicorn for production purposes
 # CMD gunicorn mydjango.wsgi -w 4 -b 0.0.0.0:8000 --chdir=/code/website/mydjango --log-file -
+
+# TODO: For Django projects with nested Vue app,
+# we have to run a multistage build with node
+
+# FROM django AS vue
+
+# RUN apt-get install -y git-core curl build-essential openssl libssl-dev \
+#     && git clone https://github.com/nodejs/node.git \
+#     && cd node \
+#     && ./configure \
+#     && make \
+#     && sudo make install
+
+# WORKDIR /frontend
+
+# RUN npm install
+
+# RUN npm run build
